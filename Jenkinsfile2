@@ -1,0 +1,13 @@
+node(label: 'QA-Environment'){
+    def server=Artifactory.server 'artifactory'
+    stage('Artifactory download'){ 
+        def downloadSpec="""
+		{	 
+			"files":[ {"pattern":"car-info/CarApp.war", "target":"/var/lib/jenkins/workspace/StageTwo/" } ] 
+		}""" 
+        server.download(downloadSpec)
+    }  
+    stage ('Final deploy'){ 
+        sh 'scp /var/lib/jenkins/workspace/StageTwo/CarApp.war root@54.255.240.216:/opt/apache-tomcat-8.5.39/webapps' 
+    } 
+}
