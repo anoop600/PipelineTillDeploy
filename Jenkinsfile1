@@ -4,6 +4,7 @@ try{
    def server =Artifactory.server 'artifactory'
    stage('Preparation') {
       git 'https://github.com/anoop600/CarApplication-1.git'
+      mvnHome = tool 'MAVEN'
    }
     stage('Quality Analysis') {
         withSonarQubeEnv('sonarqube') {
